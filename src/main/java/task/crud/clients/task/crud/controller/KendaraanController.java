@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/kendaraan")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://apk-kendaraan-fe.vercel.app")
 public class KendaraanController {
 
     @Autowired
