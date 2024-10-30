@@ -14,6 +14,9 @@ import jakarta.persistence.*;
 public class Kendaraan {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
     @Column(unique = true)
     private String noreg;
     private String name;

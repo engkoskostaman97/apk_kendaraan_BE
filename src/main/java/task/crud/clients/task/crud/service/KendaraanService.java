@@ -17,11 +17,11 @@ public class KendaraanService {
 
     // Create or Update
     public Kendaraan saveKendaraan(Kendaraan kendaraan) {
-        // Cek apakah no_register sudah terdaftar
-        if (kendaraanRepository.findByNoRegister(kendaraan.getNoreg()) != null) {
+        // Cek apakah noreg sudah terdaftar
+        if (kendaraanRepository.findByNoreg(kendaraan.getNoreg()) != null) {
             throw new RuntimeException("No Register sudah terdaftar");
         }
-        // Simpan kendaraan jika no_register unik
+        // Simpan kendaraan jika noreg unik
         return kendaraanRepository.save(kendaraan);
     }
 
@@ -31,7 +31,7 @@ public class KendaraanService {
     }
 
     // Read - Get by ID
-    public Optional<Kendaraan> getKendaraanById(String noreg) {
+    public Optional<Kendaraan> getKendaraanById(Long noreg) {
         return kendaraanRepository.findById(noreg);
     }
 
@@ -41,7 +41,7 @@ public class KendaraanService {
     }
 
     // Delete
-    public void deleteKendaraan(String noreg) {
+    public void deleteKendaraan(Long noreg) {
         kendaraanRepository.deleteById(noreg);
     }
 }
