@@ -17,8 +17,14 @@ public class KendaraanService {
 
     // Create or Update
     public Kendaraan saveKendaraan(Kendaraan kendaraan) {
+        // Cek apakah no_register sudah terdaftar
+        if (kendaraanRepository.findByNoRegister(kendaraan.getNoreg()) != null) {
+            throw new RuntimeException("No Register sudah terdaftar");
+        }
+        // Simpan kendaraan jika no_register unik
         return kendaraanRepository.save(kendaraan);
     }
+
 
     public Kendaraan updateKendaraan(Kendaraan kendaraan) {
         return kendaraanRepository.save(kendaraan);

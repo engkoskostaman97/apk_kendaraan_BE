@@ -6,5 +6,6 @@ import task.crud.clients.task.crud.model.Kendaraan;
 
 @Repository
 public interface KendaraanRepository extends JpaRepository<Kendaraan, String> {
+  Kendaraan findByNoRegister(String noRegister);
 }
 
