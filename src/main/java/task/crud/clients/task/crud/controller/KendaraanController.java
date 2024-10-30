@@ -33,7 +33,7 @@ public class KendaraanController {
 
     // Read - Get by ID
     @GetMapping("/{noreg}")
-    public ResponseEntity<Kendaraan> getKendaraanById(@PathVariable String noreg) {
+    public ResponseEntity<Kendaraan> getKendaraanById(@PathVariable Long noreg) {
         return kendaraanService.getKendaraanById(noreg)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -47,7 +47,7 @@ public class KendaraanController {
 
     // Delete
     @DeleteMapping("/{noreg}")
-    public ResponseEntity<String> deleteKendaraan(@PathVariable String noreg) {
+    public ResponseEntity<String> deleteKendaraan(@PathVariable Long noreg) {
         kendaraanService.deleteKendaraan(noreg);
         return ResponseEntity.ok("Data dengan noreg " + noreg + " berhasil dihapus");
     }
