@@ -1,6 +1,5 @@
 package task.crud.clients.task.crud.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +19,17 @@ public class KendaraanController {
 
     // Create or Update
     @PostMapping
-    public ResponseEntity<Kendaraan> createKendaraan(@RequestBody Kendaraan kendaraan) {
-        Kendaraan savedKendaraan = kendaraanService.saveKendaraan(kendaraan);
-        return ResponseEntity.ok(savedKendaraan);
+    public ResponseEntity<?> saveKendaraan(@RequestBody Kendaraan kendaraan) {
+        Object response = kendaraanService.saveKendaraan(kendaraan);
+        
+        if (response instanceof String) {
+            return ResponseEntity.badRequest().body(response); // Respons jika noreg sudah ada
+        }
+        
+        return ResponseEntity.ok(response); // Respons jika penyimpanan sukse
+        
     }
+
 
     @PutMapping
     public ResponseEntity<Kendaraan> updateKendaraan(@RequestBody Kendaraan kendaraan) {
@@ -33,7 +39,7 @@ public class KendaraanController {
 
     // Read - Get by ID
     @GetMapping("/{noreg}")
-    public ResponseEntity<Kendaraan> getKendaraanById(@PathVariable Long noreg) {
+    public ResponseEntity<Kendaraan> getKendaraanById(@PathVariable String noreg) {
         return kendaraanService.getKendaraanById(noreg)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -47,7 +53,7 @@ public class KendaraanController {
 
     // Delete
     @DeleteMapping("/{noreg}")
-    public ResponseEntity<String> deleteKendaraan(@PathVariable Long noreg) {
+    public ResponseEntity<String> deleteKendaraan(@PathVariable String noreg) {
         kendaraanService.deleteKendaraan(noreg);
         return ResponseEntity.ok("Data dengan noreg " + noreg + " berhasil dihapus");
     }
